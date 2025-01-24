@@ -24,7 +24,6 @@ wss.on('connection', (ws) => {
   console.log('WebSocket client connected');
 
   parser.on('data', (data) => {
-    console.log('Received from Serial:', data);
     ws.send(data);
   });
 

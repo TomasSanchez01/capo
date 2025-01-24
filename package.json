@@ -1,0 +1,16 @@
+{
+  "name": "rata-metegol",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:TomasSanchez01/capo.git",
+  "author": "Ignacio Diaz <diaz.ignacio023@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"yarn run server\" \"yarn run client\"",
+    "server": "node server/server.js",
+    "client": "yarn --cwd web dev"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
