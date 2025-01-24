@@ -1,45 +1,44 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const MarcadorDeGoles = () => {
   const [score, setScore] = useState({ team1: 0, team2: 0 });
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:3002');
+    const ws = new WebSocket("ws://localhost:3002");
 
     ws.onmessage = (event) => {
       const [team, score] = event.data.split(":");
-      if (team === 'EQUIPO1') {
+      if (team === "EQUIPO1") {
         setScore((prev) => ({ ...prev, team1: parseInt(score) }));
-      } else if (team === 'EQUIPO2') {
+      } else if (team === "EQUIPO2") {
         setScore((prev) => ({ ...prev, team2: parseInt(score) }));
       }
     };
 
     ws.onopen = () => {
-      console.log('Connected to WebSocket server');
+      console.log("Connected to WebSocket server");
     };
 
     ws.onclose = () => {
-      console.log('Disconnected from WebSocket server');
+      console.log("Disconnected from WebSocket server");
     };
 
     return () => {
       ws.close();
     };
-
   }, []);
 
   const resetCounter = async () => {
     try {
-      const response = await fetch('http://localhost:3001/reset', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/reset", {
+        method: "POST",
       });
 
       if (response.ok) {
         setScore({ team1: 0, team2: 0 });
       }
     } catch (error) {
-      alert('Error al resetear los contadores');
+      alert("Error al resetear los contadores");
       console.log(error);
     }
   };
@@ -57,7 +56,10 @@ const MarcadorDeGoles = () => {
           <div className="mb-6 rounded-lg bg-blue-900 px-6 py-3 text-center text-lg font-semibold text-white">
             Equipo 2: {score.team2}
           </div>
-          <button onClick={resetCounter} className="w-full rounded-lg bg-red-400 px-4 py-2 font-bold text-white transition hover:bg-red-600 cursor-pointer">
+          <button
+            onClick={resetCounter}
+            className="w-full cursor-pointer rounded-lg bg-red-400 px-4 py-2 font-bold text-white transition hover:bg-red-600"
+          >
             Resetear Contadores
           </button>
         </div>
