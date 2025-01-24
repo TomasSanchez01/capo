@@ -5,12 +5,18 @@
   "repository": "git@github.com:TomasSanchez01/capo.git",
   "author": "Ignacio Diaz <diaz.ignacio023@gmail.com>",
   "license": "MIT",
-  "scripts": {
-    "start": "concurrently \"yarn run server\" \"yarn run client\"",
-    "server": "node server/server.js",
-    "client": "yarn --cwd web dev"
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0"
   },
-  "dependencies": {
-    "concurrently": "^9.1.2"
+  "workspaces": [
+    "web",
+    "server"
+  ],
+  "scripts": {
+    "start": "concurrently \"yarn workspace server start\" \"yarn workspace web dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
   }
 }
